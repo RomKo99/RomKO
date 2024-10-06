@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Внесення Даних про Автомобіль</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            text-align: center;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Форма для Внесення Даних про Водія та Автомобіль</h2>
+    <form id="dataForm">
+        <div class="form-group">
+            <label for="rank">Звання:</label>
+            <input type="text" id="rank" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="name">Прізвище та Ініціали:</label>
+            <input type="text" id="name" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="dob">Дата Народження:</label>
+            <input type="date" id="dob" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="carBrand">Марка Автомобіля:</label>
+            <input type="text" id="carBrand" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="plateNumber">Номерний Знак:</label>
+            <input type="text" id="plateNumber" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="carColor">Колір Автомобіля:</label>
+            <input type="text" id="carColor" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="year">Рік Випуску:</label>
+            <input type="number" id="year" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="license">Посвідчення Водія, Серія:</label>
+            <input type="text" id="license" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="drivingExperience">Досвід Практичного Водіння (роки):</label>
+            <input type="number" id="drivingExperience" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="residence">Місце Проживання:</label>
+            <input type="text" id="residence" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="registration">Де Стоїть Авто на Обліку:</label>
+            <input type="text" id="registration" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Додати Дані</button>
+    </form>
+
+    <div id="tableContainer" style="margin-top: 30px;">
+        <h3>Відображення Даних</h3>
+        <table id="dataTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Звання</th>
+                    <th>Прізвище та Ініціали</th>
+                    <th>Дата Народження</th>
+                    <th>Марка Автомобіля</th>
+                    <th>Номерний Знак</th>
+                    <th>Колір Автомобіля</th>
+                    <th>Рік Випуску</th>
+                    <th>Посвідчення Водія, Серія</th>
+                    <th>Досвід Водіння</th>
+                    <th>Місце Проживання</th>
+                    <th>Облік Авто</th>
+                    <th>Дія</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Динамічно додані рядки з'являться тут -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // JavaScript для динамічного додавання даних у таблицю
+    document.getElementById('dataForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Зупинити стандартну поведінку форми (оновлення сторінки)
+
+        // Отримати значення з полів форми
+        const rank = document.getElementById('rank').value;
+        const name = document.getElementById('name').value;
+        const dob = document.getElementById('dob').value;
+        const carBrand = document.getElementById('carBrand').value;
+        const plateNumber = document.getElementById('plateNumber').value;
+        const carColor = document.getElementById('carColor').value;
+        const year = document.getElementById('year').value;
+        const license = document.getElementById('license').value;
+        const drivingExperience = document.getElementById('drivingExperience').value;
+        const residence = document.getElementById('residence').value;
+        const registration = document.getElementById('registration').value;
+
+        // Додавання нового рядка в таблицю
+        const table = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+        const newRow = table.insertRow();
+
+        // Створення комірок для нового рядка
+        newRow.insertCell(0).textContent = rank;
+        newRow.insertCell(1).textContent = name;
+        newRow.insertCell(2).textContent = dob;
+        newRow.insertCell(3).textContent = carBrand;
+        newRow.insertCell(4).textContent = plateNumber;
+        newRow.insertCell(5).textContent = carColor;
+        newRow.insertCell(6).textContent = year;
+        newRow.insertCell(7).textContent = license;
+        newRow.insertCell(8).textContent = drivingExperience;
+        newRow.insertCell(9).textContent = residence;
+        newRow.insertCell(10).textContent = registration;
+
+        // Додавання кнопки "Видалити" в останню комірку
+        const actionCell = newRow.insertCell(11);
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Видалити';
+        deleteButton.className = 'btn btn-danger';
+        deleteButton.addEventListener('click', function() {
+            table.deleteRow(newRow.rowIndex - 1); // Видалення поточного рядка
+        });
+        actionCell.appendChild(deleteButton);
+
+        // Очищення форми після додавання даних
+        document.getElementById('dataForm').reset();
+    });
+</script>
+
+</body>
+</html>
